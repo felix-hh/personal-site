@@ -1,0 +1,44 @@
+{{ define "main" }}
+{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+{{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
+{{ $filtered := ($pages | intersect $notHidden) }}
+{{ $pag := .Paginate ($filtered) }}
+
+<div>
+    <div>
+        <h2>Currently</h2>
+        <div>
+            <ul>
+                <li>Northwestern University - June '24</li>
+            </ul>
+        </div>
+        <h2>Previously</h2>
+        <div>
+            <ul>
+                <li>Citadel</li>
+                <li>Nuna Healthcare</li>
+                <li>Kleiner Perkins Engineering Fellowship</li>
+                <li>AWS EMR</li>
+                <li>Computational Photography Lab</li>
+            </ul>
+        </div>
+        <h2>Projects</h2>
+        <div>
+            <ul>
+                <li><b>AcccessMRF</b>: A <a style="text-decoration:underline" href='http://www.accessmrf.com/'>large-scale data catalog </a> that aims to make available machine readable files containing medical insurer pricing. I am using this dataset for my healthcare economics thesis.</li>
+                <li ><b>Hippo</b>: <a style="text-decoration:underline" href="http://hippo.felixhaba.com/">Medical service cost catalog </a> using hospital price transparency data to provide gross charge estimates of IL and CA hospitals. The data is scraped online from every hospital website, converted to a SQLite table and search capabilities are powered via OpenAI GPT-3 and property filters. I also delivered <a style="text-decoration:underline" href='https://drive.google.com/file/d/1M4leJtR6Pr5DV-vTD2RCqUniz6dfy9l6/view?usp=sharing'>a talk on how I built it at Wildhacks 2023</a>, my college's hackathon.</li>
+                <li ><b>Instra.ai</b>: surgical instrument detection using transfer learning on YoloV5. Deployed on <a style="text-decoration:underline" href='http://instra.felixhaba.com/'>a webapp</a> using AWS Lambda and <a style="text-decoration:underline" href='http://www.felixhaba.com/instruments.html'>on hardware</a>. I also wrote <a style="text-decoration:underline" href='https://drive.google.com/file/d/1iycK1mXEVQ1CszigU2Hdbw96XhLXwIxB/view?usp=sharing'>a report for course credit here</a>.</li>
+            </ul>
+        </div>
+        <h2 >Contact</h2>
+        <div>
+            <ul>
+                <li ><a style="text-decoration:underline" href="mailto:felixhr2000@gmail.com">Email</a></li>
+                <li ><a style="text-decoration:underline" href="https://www.linkedin.com/in/felixhaba/">LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+
+    {{- partial "pagination.html" . -}}
+    {{- partial "footer/footer" . -}}
+    {{ end }}
