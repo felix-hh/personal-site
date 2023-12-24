@@ -2,63 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://felix-hh.github.io/personal-site/p/hello-world/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://felix-hh.github.io/personal-site/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/categories/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/tags/css/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/tags/html/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/tags/markdown/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/p/markdown-syntax-guide/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/post/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/categories/syntax/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/tags/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/tags/themes/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/categories/themes/</loc>
-    <lastmod>2023-09-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/p/image-gallery/</loc>
-    <lastmod>2023-08-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/p/shortcodes/</loc>
-    <lastmod>2023-08-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/p/math-typesetting/</loc>
-    <lastmod>2023-08-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://felix-hh.github.io/personal-site/archives/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/categories/example-category/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://felix-hh.github.io/personal-site/tags/example-tag/</loc>
     <lastmod>2022-03-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://felix-hh.github.io/personal-site/page/</loc>
     <lastmod>2022-03-06T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://felix-hh.github.io/personal-site/categories/</loc>
+  </url><url>
+    <loc>https://felix-hh.github.io/personal-site/categories/example-category/</loc>
+  </url><url>
     <loc>https://felix-hh.github.io/personal-site/search/</loc>
+  </url><url>
+    <loc>https://felix-hh.github.io/personal-site/tags/</loc>
   </url>
 </urlset>
