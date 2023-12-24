@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Felix Haba</title>
-        <link>https://felix-hh.github.io/personal-site/tags/</link>
+        <link>https://www.felixhaba.com/tags/</link>
         <description>Recent content in Tags on Felix Haba</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language><atom:link href="https://felix-hh.github.io/personal-site/tags/index.xml" rel="self" type="application/rss+xml" />
+        <language>en-us</language><atom:link href="https://www.felixhaba.com/tags/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>

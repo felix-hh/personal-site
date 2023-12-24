@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Felix Haba</title>
-        <link>https://felix-hh.github.io/personal-site/</link>
+        <link>https://www.felixhaba.com/</link>
         <description>Recent content on Felix Haba</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://felix-hh.github.io/personal-site/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.felixhaba.com/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Archives</title>
-        <link>https://felix-hh.github.io/personal-site/archives/</link>
+        <link>https://www.felixhaba.com/archives/</link>
         <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://felix-hh.github.io/personal-site/archives/</guid>
+        <guid>https://www.felixhaba.com/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Search</title>
-        <link>https://felix-hh.github.io/personal-site/search/</link>
+        <link>https://www.felixhaba.com/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://felix-hh.github.io/personal-site/search/</guid>
+        <guid>https://www.felixhaba.com/search/</guid>
         <description></description>
         </item>
         
