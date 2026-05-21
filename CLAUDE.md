@@ -93,9 +93,9 @@ so id-based suffix checks silently fail. If you touch this, keep using `filePath
 - `/writing/` archive = all visible posts grouped by year.
 All driven from the collection in `src/lib/posts.ts`; no manual lists to maintain.
 
-### 5. Résumé PDF
+### 5. Resume PDF
 The About page button links to `/felix-haba-resume.pdf`. Put the file at
-`public/felix-haba-resume.pdf`; replacing it ships a new résumé with no code change.
+`public/felix-haba-resume.pdf`; replacing it ships a new resume with no code change.
 
 ### 6. Editing the About / Career / contact info
 - Bio, Recent Reads, **Career** (date column + logo + "Name · role"), Projects: `src/pages/about.astro`.
