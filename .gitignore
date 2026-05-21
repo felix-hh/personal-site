@@ -14,3 +14,7 @@ npm-debug.log*
 
 # Claude Code local settings
 .claude/
+
+# Local-only draft posts (never published)
+src/content/writing/*.draft.md
+src/content/writing/*.draft.mdx

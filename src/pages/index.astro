@@ -6,6 +6,7 @@ import {
   postHref,
   formatDay,
   formatMonth,
+  isDraft,
 } from '../lib/posts';
 
 const featured = await getFeaturedPosts();
@@ -20,6 +21,7 @@ const recent = (await getPublishedPosts()).slice(0, 7);
         <article class="fh-featured-item">
           <a href={postHref(p)} class="fh-featured-title fh-bare">
             {p.data.title}
+            {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
           </a>
           <span class="fh-featured-desc">{p.data.description}</span>
           <span class="fh-featured-meta">{formatMonth(p.data.date)}</span>
@@ -39,6 +41,7 @@ const recent = (await getPublishedPosts()).slice(0, 7);
           <span class="fh-list-date">{formatDay(p.data.date)}</span>
           <span class="fh-list-title">
             <a href={postHref(p)}>{p.data.title}</a>
+            {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
           </span>
         </li>
       ))

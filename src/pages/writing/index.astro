@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getPublishedPosts, postHref, formatDayMonth } from '../../lib/posts';
+import { getPublishedPosts, postHref, formatDayMonth, isDraft } from '../../lib/posts';
 
 const posts = await getPublishedPosts();
 const count = posts.length;
@@ -31,6 +31,7 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
               <span class="fh-list-date">{formatDayMonth(p.data.date)}</span>
               <span class="fh-list-title">
                 <a href={postHref(p)}>{p.data.title}</a>
+                {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
                 <span class="fh-list-desc">{p.data.description}</span>
               </span>
             </li>

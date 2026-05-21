@@ -225,6 +225,15 @@ html { color-scheme: light; }
 .fh-cv-list li { display: grid; grid-template-columns: 130px 1fr; gap: 16px; align-items: baseline; color: var(--ink-soft); font-size: 17px; }
 .fh-cv-list li .fh-cv-when { color: var(--ink-mute); font-family: var(--font-label); font-size: var(--meta-size); text-transform: var(--label-transform); letter-spacing: var(--label-tracking); font-weight: var(--label-weight); font-style: var(--label-style); font-variant-numeric: tabular-nums; }
 
+/* Draft marker (dev only — drafts never reach production) */
+.fh-draft-tag {
+  font-family: var(--font-label);
+  font-style: italic;
+  font-size: 0.8em;
+  color: var(--ink-faint);
+  margin-left: 6px;
+}
+
 /* Recent reads (book titles, italic) */
 .fh-reads { list-style: none; padding: 0; margin: 12px 0 24px; display: flex; flex-direction: column; gap: 6px; }
 .fh-reads li { color: var(--ink-soft); font-size: 17px; font-style: italic; }

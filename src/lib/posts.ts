@@ -2,27 +2,51 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Post = CollectionEntry<'writing'>;
 
-// All published (non-draft) posts, newest first.
+// A post is a draft if its file is named `*.draft.md(x)` (those files are
+// gitignored — local-only) or it sets `draft: true` in frontmatter. We check
+// `filePath` rather than `id` because the glob loader slugifies ids (it strips
+// the dot, turning `foo.draft` into `foodraft`).
+export function isDraft(post: Post): boolean {
+  const fp = post.filePath ?? '';
+  return /\.draft\.(md|mdx)$/.test(fp) || post.data.draft === true;
+}
+
+// Drafts are previewable in `astro dev` but excluded from production builds.
+const SHOW_DRAFTS = import.meta.env.DEV;
+
+// Clean slug from the filename, stripping any `.draft` suffix.
+export function postSlug(post: Post): string {
+  if (post.filePath) {
+    return post.filePath
+      .split('/')
+      .pop()!
+      .replace(/\.(md|mdx)$/, '')
+      .replace(/\.draft$/, '');
+  }
+  return post.id;
+}
+
+export function postHref(post: Post): string {
+  return `/writing/${postSlug(post)}/`;
+}
+
+// All visible posts (drafts included only in dev), newest first.
 export async function getPublishedPosts(): Promise<Post[]> {
-  const posts = await getCollection('writing', ({ data }) => !data.draft);
+  const posts = await getCollection('writing', (p) => SHOW_DRAFTS || !isDraft(p));
   return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
 // Featured posts: featured === true, ordered by featured_order ascending.
 export async function getFeaturedPosts(): Promise<Post[]> {
-  const posts = await getCollection('writing', ({ data }) => !data.draft && data.featured);
+  const posts = await getCollection(
+    'writing',
+    (p) => (SHOW_DRAFTS || !isDraft(p)) && p.data.featured,
+  );
   return posts.sort(
     (a, b) =>
       (a.data.featured_order ?? Infinity) - (b.data.featured_order ?? Infinity),
   );
 }
-
-export function postHref(post: Post): string {
-  return `/writing/${post.id}/`;
-}
-
-// Dates are authored as YYYY-MM-DD (parsed as UTC midnight); format in UTC so
-// they don't shift a day in timezones behind UTC.
 
 // "21 Mar 2026"
 export function formatDay(date: Date): string {
