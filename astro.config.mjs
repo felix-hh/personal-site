@@ -7,7 +7,7 @@ import remarkGfm from 'remark-gfm';
 
 // https://astro.build/config
 export default defineConfig({
-  // Placeholder — change to the GitHub Pages URL (or custom domain) at deploy time.
+  // Custom domain served via GitHub Pages (see public/CNAME).
   site: 'https://www.felixhaba.com',
   integrations: [mdx(), preact(), sitemap()],
   markdown: {
