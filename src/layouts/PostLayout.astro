@@ -1,0 +1,34 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+}
+
+const { title, description, date } = Astro.props;
+
+const dateLabel = date.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <h1 class="fh-h1">{title}</h1>
+    <p class="fh-post-meta">{dateLabel}</p>
+
+    <div class="fh-post-body">
+      <slot />
+    </div>
+
+    <nav class="fh-postnav">
+      <a href="/writing/">← All writing</a>
+      <a href="/">Home →</a>
+    </nav>
+  </article>
+</BaseLayout>

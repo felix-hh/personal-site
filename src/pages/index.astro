@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  getFeaturedPosts,
+  getPublishedPosts,
+  postHref,
+  formatDay,
+  formatMonth,
+} from '../lib/posts';
+
+const featured = await getFeaturedPosts();
+const recent = (await getPublishedPosts()).slice(0, 7);
+---
+
+<BaseLayout>
+  <div class="fh-section-label" style="margin-top: 8px;"><span>Featured</span></div>
+  <div>
+    {
+      featured.map((p) => (
+        <article class="fh-featured-item">
+          <a href={postHref(p)} class="fh-featured-title fh-bare">
+            {p.data.title}
+          </a>
+          <span class="fh-featured-desc">{p.data.description}</span>
+          <span class="fh-featured-meta">{formatMonth(p.data.date)}</span>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="fh-section-label">
+    <span>Recent</span>
+    <a href="/writing/">All writing →</a>
+  </div>
+  <ul class="fh-list">
+    {
+      recent.map((p) => (
+        <li class="fh-list-item">
+          <span class="fh-list-date">{formatDay(p.data.date)}</span>
+          <span class="fh-list-title">
+            <a href={postHref(p)}>{p.data.title}</a>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

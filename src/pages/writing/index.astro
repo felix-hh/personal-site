@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, postHref, formatDayMonth } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+const count = posts.length;
+
+// Group by year (newest first), preserving date-desc order within each year.
+const byYear = new Map<number, typeof posts>();
+for (const p of posts) {
+  const y = p.data.date.getUTCFullYear();
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y)!.push(p);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+---
+
+<BaseLayout title="Writing">
+  <h1 class="fh-h1">Writing</h1>
+  <p class="fh-meta" style="margin-bottom: 8px;">
+    {count} post{count === 1 ? '' : 's'} · <a href="/rss.xml">RSS</a>
+  </p>
+
+  {
+    years.map((year) => (
+      <section>
+        <div class="fh-year-label">{year}</div>
+        <ul class="fh-list">
+          {byYear.get(year)!.map((p) => (
+            <li class="fh-list-item">
+              <span class="fh-list-date">{formatDayMonth(p.data.date)}</span>
+              <span class="fh-list-title">
+                <a href={postHref(p)}>{p.data.title}</a>
+                <span class="fh-list-desc">{p.data.description}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</BaseLayout>

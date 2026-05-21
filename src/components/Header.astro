@@ -1,0 +1,25 @@
+---
+import { SITE_TITLE, TAGLINE, NAV } from '../consts';
+
+// Current path so the active nav item can be marked.
+const path = Astro.url.pathname;
+---
+
+<header class="fh-header">
+  <div class="fh-brand-row">
+    <a href="/" class="fh-brand fh-bare">{SITE_TITLE}</a>
+    <span class="fh-tagline">{TAGLINE}</span>
+  </div>
+  <nav class="fh-nav">
+    {
+      NAV.map((n) => (
+        <a
+          href={n.href}
+          aria-current={path.startsWith(n.href) ? 'page' : undefined}
+        >
+          {n.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
