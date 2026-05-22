@@ -1,50 +1,89 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import {
-  getFeaturedPosts,
-  getPublishedPosts,
-  postHref,
-  formatDay,
-  formatMonth,
-  isDraft,
-} from '../lib/posts';
+import { CONTACT, BIO_INTRO } from '../consts';
 
-const featured = await getFeaturedPosts();
-const recent = (await getPublishedPosts()).slice(0, 7);
+// Orgs support an optional logo: drop a file in public/logos/ and set `logo`
+// to its path (e.g. '/logos/citadel.svg'). Without a logo it renders as text.
+// Career — newest first. Date ranges + roles are best-effort; adjust freely.
+const career = [
+  { when: '2024 — now', logo: '/logos/nooks.jpg', name: 'Nooks', role: 'Product Engineer' },
+  { when: '2022', logo: '/logos/citadel.png', name: 'Citadel', role: 'QD on corporate bonds' },
+  { when: '2022', logo: '/logos/nuna.png', name: 'Nuna Health', role: 'healthcare data platforms' },
+  { when: '2022', logo: '/logos/kleiner-perkins.png', name: 'Kleiner Perkins', role: 'Engineering Fellowship' },
+  { when: '2022', logo: '/logos/aws-color.svg', name: 'AWS EMR', role: 'software engineer' },
+  { when: '2021', logo: '/logos/mccormick.png', name: 'Computational Photography Lab', role: 'research' },
+];
+
+const reads = [
+  'A Gentleman in Moscow',
+  'Project Hail Mary',
+  'Churchill: Walking with Destiny',
+  'Database Design for Mere Mortals',
+];
 ---
 
-<BaseLayout>
-  <div class="fh-section-label" style="margin-top: 8px;"><span>Featured</span></div>
-  <div>
-    {
-      featured.map((p) => (
-        <article class="fh-featured-item">
-          <a href={postHref(p)} class="fh-featured-title fh-bare">
-            {p.data.title}
-            {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
-          </a>
-          <span class="fh-featured-desc">{p.data.description}</span>
-          <span class="fh-featured-meta">{formatMonth(p.data.date)}</span>
-        </article>
-      ))
-    }
-  </div>
+<BaseLayout title="About">
+  <h1 class="fh-h1">About</h1>
+  <p class="fh-meta" style="margin-bottom: 32px;">Felix Haba · San Francisco, CA</p>
 
-  <div class="fh-section-label">
-    <span>Recent</span>
-    <a href="/writing/">All writing →</a>
-  </div>
-  <ul class="fh-list">
+  <p class="fh-p">{BIO_INTRO}</p>
+
+  <p class="fh-p">
+    In my free time, I boulder, hike, explore nature and hang out with friends, and when
+    inspiration hits, I hack on <a href="https://accessmrf.com">accessmrf.com</a> which builds
+    on a thesis idea I worked on during undergrad. I also love to read — I enjoy many genres,
+    including biographies, fantasy books (hi Brandon Sanderson), fiction and non-fiction,
+    anything I can get my hands on. My favorite game is foosball, but I don't get to play it
+    often.
+  </p>
+
+  <h2 class="fh-h2">Recent Reads</h2>
+  <ul class="fh-reads">
+    {reads.map((r) => <li>{r}</li>)}
+  </ul>
+
+  <h2 class="fh-h2">Career</h2>
+  <ul class="fh-career">
     {
-      recent.map((p) => (
-        <li class="fh-list-item">
-          <span class="fh-list-date">{formatDay(p.data.date)}</span>
-          <span class="fh-list-title">
-            <a href={postHref(p)}>{p.data.title}</a>
-            {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
+      career.map((o) => (
+        <li>
+          <span class="fh-career-when">{o.when}</span>
+          <img class="fh-org-logo" src={o.logo} alt="" />
+          <span class="fh-career-what">
+            {o.name}{o.role && <> · {o.role}</>}
           </span>
         </li>
       ))
     }
   </ul>
+
+  <h2 class="fh-h2">Projects</h2>
+  <p class="fh-p">
+    <strong><a href="https://accessmrf.com">AccessMRF</a>.</strong> A large-scale data catalog that aims to make available machine
+    readable files containing medical insurer pricing. I am using this dataset for my
+    healthcare economics thesis.
+  </p>
+  <p class="fh-p">
+    <strong>Hippo.</strong> Medical service cost catalog using hospital price transparency data
+    to provide gross charge estimates of IL and CA hospitals. The data is scraped online from
+    every hospital website, converted to a SQLite table and search capabilities are powered via
+    OpenAI GPT-3 and property filters. I also delivered a talk on how I built it at Wildhacks
+    2023, my college's hackathon.
+  </p>
+  <p class="fh-p">
+    <strong>Instra.ai.</strong> Surgical instrument detection using transfer learning on
+    YoloV5. Deployed on a webapp using AWS Lambda and on hardware. I also wrote a report for
+    course credit here.
+  </p>
+
+  <h2 class="fh-h2">Resume</h2>
+  <p class="fh-p">The full PDF has dates, projects, and a one-line summary for each role.</p>
+  <a href="https://drive.google.com/file/d/18onP_0r-Nk5hQVgQ9WqlDxNaG-E16voB/view" class="fh-download">Download resume (PDF)</a>
+
+  <h2 class="fh-h2">Contact</h2>
+  <p class="fh-p">
+    The fastest way to reach me is <a href={`mailto:${CONTACT.email}`}>email</a>. I'm also on
+    <a href={CONTACT.github}>GitHub</a> and <a href={CONTACT.linkedin}>LinkedIn</a>, and the
+    writing here has an <a href="/rss.xml">RSS feed</a>.
+  </p>
 </BaseLayout>

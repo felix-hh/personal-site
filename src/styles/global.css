@@ -164,7 +164,7 @@ html { color-scheme: light; }
   margin: 72px 0 18px;
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: center;
 }
 .fh-section-label a { font-style: normal; font-size: var(--meta-size); }
 .fh-section-label > span:first-child {
@@ -190,9 +190,16 @@ html { color-scheme: light; }
 .fh-list-title a:hover { text-decoration: underline; text-decoration-color: var(--ink); text-underline-offset: 4px; }
 .fh-list-desc { display: block; color: var(--ink-mute); font-size: 15.5px; margin-top: 3px; line-height: 1.5; }
 
-/* Featured list (slightly heavier) */
-.fh-featured-item { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 14px 0; border-top: 1px solid var(--rule); }
-.fh-featured-item:last-child { border-bottom: 1px solid var(--rule); }
+/* Featured panel — tinted block sets it apart from the open list below */
+.fh-featured {
+  background: var(--bg-subtle);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 4px 26px;
+}
+.fh-featured-item { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 16px 0; border-top: 1px solid var(--rule); }
+.fh-featured-item:first-child { border-top: none; }
+.fh-featured-item:last-child { border-bottom: none; }
 .fh-featured-title { font-family: var(--font-body); font-size: 18.5px; color: var(--ink); font-weight: 500; text-decoration: none; }
 .fh-featured-title:hover { text-decoration: underline; text-decoration-color: var(--ink); text-underline-offset: 4px; }
 .fh-featured-desc { color: var(--ink-mute); font-size: 15.5px; line-height: 1.5; }

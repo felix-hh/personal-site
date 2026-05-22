@@ -16,5 +16,5 @@ export const CONTACT = {
 
 export const NAV = [
   { href: '/writing/', label: 'Writing' },
-  { href: '/about/', label: 'About' },
+  { href: '/', label: 'About' },
 ];
