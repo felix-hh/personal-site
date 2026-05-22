@@ -15,7 +15,7 @@ const path = Astro.url.pathname;
       NAV.map((n) => (
         <a
           href={n.href}
-          aria-current={path.startsWith(n.href) ? 'page' : undefined}
+          aria-current={(n.href === '/' ? path === '/' : path.startsWith(n.href)) ? 'page' : undefined}
         >
           {n.label}
         </a>

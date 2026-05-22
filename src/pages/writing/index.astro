@@ -1,43 +1,47 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getPublishedPosts, postHref, formatDayMonth, isDraft } from '../../lib/posts';
+import {
+  getFeaturedPosts,
+  getPublishedPosts,
+  postHref,
+  formatDay,
+  formatMonth,
+  isDraft,
+} from '../../lib/posts';
 
-const posts = await getPublishedPosts();
-const count = posts.length;
-
-// Group by year (newest first), preserving date-desc order within each year.
-const byYear = new Map<number, typeof posts>();
-for (const p of posts) {
-  const y = p.data.date.getUTCFullYear();
-  if (!byYear.has(y)) byYear.set(y, []);
-  byYear.get(y)!.push(p);
-}
-const years = [...byYear.keys()].sort((a, b) => b - a);
+const featured = await getFeaturedPosts();
+const recent = await getPublishedPosts();
 ---
 
 <BaseLayout title="Writing">
-  <h1 class="fh-h1">Writing</h1>
-  <p class="fh-meta" style="margin-bottom: 8px;">
-    {count} post{count === 1 ? '' : 's'} · <a href="/rss.xml">RSS</a>
-  </p>
+  <div class="fh-section-label" style="margin-top: 8px;"><span>Featured</span></div>
+  <div class="fh-featured">
+    {
+      featured.map((p) => (
+        <article class="fh-featured-item">
+          <a href={postHref(p)} class="fh-featured-title fh-bare">
+            {p.data.title}
+            {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
+          </a>
+          <span class="fh-featured-desc">{p.data.description}</span>
+          <span class="fh-featured-meta">{formatMonth(p.data.date)}</span>
+        </article>
+      ))
+    }
+  </div>
 
-  {
-    years.map((year) => (
-      <section>
-        <div class="fh-year-label">{year}</div>
-        <ul class="fh-list">
-          {byYear.get(year)!.map((p) => (
-            <li class="fh-list-item">
-              <span class="fh-list-date">{formatDayMonth(p.data.date)}</span>
-              <span class="fh-list-title">
-                <a href={postHref(p)}>{p.data.title}</a>
-                {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
-                <span class="fh-list-desc">{p.data.description}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))
-  }
+  <div class="fh-section-label"><span>All writing</span></div>
+  <ul class="fh-list">
+    {
+      recent.map((p) => (
+        <li class="fh-list-item">
+          <span class="fh-list-date">{formatDay(p.data.date)}</span>
+          <span class="fh-list-title">
+            <a href={postHref(p)}>{p.data.title}</a>
+            {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
 </BaseLayout>
