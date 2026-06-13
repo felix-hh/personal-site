@@ -264,6 +264,28 @@ html { color-scheme: light; }
 .fh-career-what { color: var(--ink-soft); }
 .fh-org-logo { max-width: 36px; max-height: 22px; object-fit: contain; justify-self: center; }
 
+/* About header — name + meta on the left, portrait on the right */
+.fh-bio-header { display: flex; align-items: center; gap: 24px; margin: 0 0 28px; }
+.fh-bio-heading { flex: 1; min-width: 0; }
+.fh-bio-heading .fh-h1 { margin-bottom: 4px; }
+.fh-bio-heading .fh-meta { margin: 0; }
+.fh-portrait {
+  flex-shrink: 0; width: 140px; height: 140px;
+  border-radius: 50%; object-fit: cover;
+}
+@media (max-width: 560px) {
+  .fh-portrait { width: 104px; height: 104px; }
+}
+
+/* Education / Experience — logo + name + role + one-line detail */
+.fh-roles { list-style: none; padding: 0; margin: 14px 0 24px; display: flex; flex-direction: column; gap: 20px; }
+.fh-role { display: flex; align-items: flex-start; gap: 16px; }
+.fh-role-logo { flex-shrink: 0; width: 36px; height: 36px; object-fit: contain; margin-top: 3px; }
+.fh-role-body { min-width: 0; }
+.fh-role-name { margin: 0; color: var(--ink); font-weight: 600; }
+.fh-role-title { margin: 3px 0 0; font-size: 15px; color: var(--ink-soft); }
+.fh-role-detail { margin: 3px 0 0; font-size: 14px; color: var(--ink-mute); text-wrap: pretty; }
+
 /* Download button */
 .fh-download {
   display: inline-flex; align-items: baseline; gap: 8px;

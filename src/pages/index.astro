@@ -2,16 +2,60 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CONTACT, BIO_INTRO } from '../consts';
 
-// Orgs support an optional logo: drop a file in public/logos/ and set `logo`
-// to its path (e.g. '/logos/citadel.svg'). Without a logo it renders as text.
-// Career — newest first. Date ranges + roles are best-effort; adjust freely.
-const career = [
-  { when: '2024 — now', logo: '/logos/nooks.jpg', name: 'Nooks', role: 'Product Engineer' },
-  { when: '2022', logo: '/logos/citadel.png', name: 'Citadel', role: 'QD on corporate bonds' },
-  { when: '2022', logo: '/logos/nuna.png', name: 'Nuna Health', role: 'healthcare data platforms' },
-  { when: '2022', logo: '/logos/kleiner-perkins.png', name: 'Kleiner Perkins', role: 'Engineering Fellowship' },
-  { when: '2022', logo: '/logos/aws-color.svg', name: 'AWS EMR', role: 'software engineer' },
-  { when: '2021', logo: '/logos/mccormick.png', name: 'Computational Photography Lab', role: 'research' },
+// Education + Experience, newest first. Each entry: logo + name + role + a
+// one-line detail. Logos live in public/logos/.
+const education = [
+  {
+    logo: '/logos/northwestern.png',
+    name: 'Northwestern University',
+    role: 'MS Computer Science · BS Physics & Economics',
+    detail: 'McCormick School of Engineering. Kellogg Certificate in Managerial Analytics. 3.81 GPA.',
+  },
+];
+
+const experience = [
+  {
+    logo: '/logos/nooks.png',
+    name: 'Nooks',
+    role: 'Product Engineer',
+    detail: 'Building the AI-powered sales platform for outbound teams.',
+  },
+  {
+    logo: '/logos/citadel.png',
+    name: 'Citadel',
+    role: 'Software Engineer Intern · Credit Quantitative Development',
+    detail: 'Rearchitected pricing engine with asyncio, reducing p95 latency by 30x.',
+  },
+  {
+    logo: '/logos/nuna.png',
+    name: 'Nuna Healthcare',
+    role: 'Software Engineer Intern · Data Foundation',
+    detail: 'Designed data lake architecture and built multi-tenant data ingestion pipelines on AWS.',
+  },
+  {
+    logo: '/logos/kleiner-perkins.png',
+    name: 'Kleiner Perkins',
+    role: 'Engineering Fellow',
+    detail: 'Selected for the KP Engineering Fellowship program.',
+  },
+  {
+    logo: '/logos/aws-color.svg',
+    name: 'Amazon Web Services',
+    role: 'Software Development Engineer Intern · Elastic MapReduce',
+    detail: 'Built feature release service, JupyterLab extensions, and EMR Console auth flows.',
+  },
+  {
+    logo: '/logos/mccormick.png',
+    name: 'Computational Photography Lab',
+    role: 'Research Assistant · NLP & Computational Photography',
+    detail: 'Ran LLM experiments on multi-GPU setups and automated hologram data collection hardware.',
+  },
+  {
+    logo: '/logos/instra.png',
+    name: 'Instra.ai',
+    role: 'Co-founder',
+    detail: 'Trained a YOLOv5 model for surgical instrument detection; deployed via AWS Lambda.',
+  },
 ];
 
 const reads = [
@@ -22,9 +66,14 @@ const reads = [
 ];
 ---
 
-<BaseLayout title="About">
-  <h1 class="fh-h1">About</h1>
-  <p class="fh-meta" style="margin-bottom: 32px;">Felix Haba · San Francisco, CA</p>
+<BaseLayout>
+  <header class="fh-bio-header">
+    <div class="fh-bio-heading">
+      <h1 class="fh-h1">Felix Haba</h1>
+      <p class="fh-meta">San Francisco, CA · Northwestern University, 2024</p>
+    </div>
+    <img class="fh-portrait" src="/profile.jpg" alt="Felix Haba" width="140" height="140" />
+  </header>
 
   <p class="fh-p">{BIO_INTRO}</p>
 
@@ -37,24 +86,41 @@ const reads = [
     often.
   </p>
 
-  <h2 class="fh-h2">Recent Reads</h2>
-  <ul class="fh-reads">
-    {reads.map((r) => <li>{r}</li>)}
-  </ul>
-
-  <h2 class="fh-h2">Career</h2>
-  <ul class="fh-career">
+  <h2 class="fh-h2">Education</h2>
+  <ul class="fh-roles">
     {
-      career.map((o) => (
-        <li>
-          <span class="fh-career-when">{o.when}</span>
-          <img class="fh-org-logo" src={o.logo} alt="" />
-          <span class="fh-career-what">
-            {o.name}{o.role && <> · {o.role}</>}
-          </span>
+      education.map((o) => (
+        <li class="fh-role">
+          <img class="fh-role-logo" src={o.logo} alt={`${o.name} logo`} />
+          <div class="fh-role-body">
+            <p class="fh-role-name">{o.name}</p>
+            <p class="fh-role-title">{o.role}</p>
+            <p class="fh-role-detail">{o.detail}</p>
+          </div>
         </li>
       ))
     }
+  </ul>
+
+  <h2 class="fh-h2">Experience</h2>
+  <ul class="fh-roles">
+    {
+      experience.map((o) => (
+        <li class="fh-role">
+          <img class="fh-role-logo" src={o.logo} alt={`${o.name} logo`} />
+          <div class="fh-role-body">
+            <p class="fh-role-name">{o.name}</p>
+            <p class="fh-role-title">{o.role}</p>
+            <p class="fh-role-detail">{o.detail}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2 class="fh-h2">Recent Reads</h2>
+  <ul class="fh-reads">
+    {reads.map((r) => <li>{r}</li>)}
   </ul>
 
   <h2 class="fh-h2">Projects</h2>
