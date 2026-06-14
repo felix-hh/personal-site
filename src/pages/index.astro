@@ -18,42 +18,49 @@ const experience = [
     logo: '/logos/nooks.png',
     name: 'Nooks',
     role: 'Product Engineer',
+    date: 'Jun 2024 – Present',
     detail: 'Building the AI-powered sales platform for outbound teams.',
   },
   {
     logo: '/logos/citadel.png',
     name: 'Citadel',
     role: 'Software Engineer Intern · Credit Quantitative Development',
+    date: 'Sep 2022 – Dec 2022',
     detail: 'Rearchitected pricing engine with asyncio, reducing p95 latency by 30x.',
   },
   {
     logo: '/logos/nuna.png',
     name: 'Nuna Healthcare',
     role: 'Software Engineer Intern · Data Foundation',
+    date: 'Jun 2022 – Sep 2022',
     detail: 'Designed data lake architecture and built multi-tenant data ingestion pipelines on AWS.',
   },
   {
     logo: '/logos/kleiner-perkins.png',
     name: 'Kleiner Perkins',
     role: 'Engineering Fellow',
+    date: 'Jun 2022 – Sep 2022',
     detail: 'Selected for the KP Engineering Fellowship program.',
   },
   {
     logo: '/logos/aws-color.svg',
     name: 'Amazon Web Services',
     role: 'Software Development Engineer Intern · Elastic MapReduce',
+    date: 'Mar 2022 – Jun 2022',
     detail: 'Built feature release service, JupyterLab extensions, and EMR Console auth flows.',
   },
   {
     logo: '/logos/mccormick.png',
     name: 'Computational Photography Lab',
     role: 'Research Assistant · NLP & Computational Photography',
+    date: '',
     detail: 'Ran LLM experiments on multi-GPU setups and automated hologram data collection hardware.',
   },
   {
     logo: '/logos/instra.png',
     name: 'Instra.ai',
     role: 'Co-founder',
+    date: '',
     detail: 'Trained a YOLOv5 model for surgical instrument detection; deployed via AWS Lambda.',
   },
 ];
@@ -109,7 +116,10 @@ const reads = [
         <li class="fh-role">
           <img class="fh-role-logo" src={o.logo} alt={`${o.name} logo`} />
           <div class="fh-role-body">
-            <p class="fh-role-name">{o.name}</p>
+            <div class="fh-role-head">
+              <p class="fh-role-name">{o.name}</p>
+              {o.date && <span class="fh-role-date">{o.date}</span>}
+            </div>
             <p class="fh-role-title">{o.role}</p>
             <p class="fh-role-detail">{o.detail}</p>
           </div>
