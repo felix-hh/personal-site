@@ -14,14 +14,14 @@
 @import '@fontsource/jetbrains-mono/500.css';
 
 :root {
-  /* Palette (locked) */
-  --bg: #faf8f3;
-  --bg-subtle: #f3f0e8;
+  /* Palette — Notion-style white page with neutral-warm blocks */
+  --bg: #ffffff;
+  --bg-subtle: #f7f6f3;
   --ink: #1c1916;
   --ink-soft: #3a352e;
   --ink-mute: #6b6457;
   --ink-faint: #a39c8e;
-  --rule: #e6e1d4;
+  --rule: #eceae4;
   /* No accent: mapped to ink so any --accent reference stays monochrome. */
   --accent: #1c1916;
   --accent-soft: #3a352e;
