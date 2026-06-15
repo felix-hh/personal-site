@@ -80,7 +80,6 @@ export default function ContainmentHeatmap() {
   }, [thr]);
 
   const k = kept.length;
-  const lossless = thr >= 0.9999;
 
   // Anchor the grid at fixed top-left margins. Columns are fixed (all n files),
   // rows shrink as files are kept-or-absorbed, so the figure gets shorter — not
@@ -235,10 +234,7 @@ export default function ContainmentHeatmap() {
           </div>
           <p class="fh-hm-summary">
             Keep <b>{kept.length} file{kept.length > 1 ? 's' : ''}</b> ({kept.join(', ')});{' '}
-            {n - kept.length} subsumed.{' '}
-            {lossless
-              ? 'At 100% the sketch found no rates in the dropped files that the kept ones miss — loss is minimal, bounded by what a sampled estimate can overlook.'
-              : "Below 100% you're trading a sliver of rates for fewer files (lossy)."}
+            {n - kept.length} subsumed.
           </p>
         </div>
       </div>

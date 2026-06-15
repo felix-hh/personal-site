@@ -185,8 +185,7 @@ export default function ContainmentHeatmapLarge() {
 
         <p class="fh-hm-summary">
           71.6 billion rates across 115 files; only 4.14 billion distinct (94.2% redundant).
-          21 representatives cover 98.3% of the distinct rates — the dense lower band is files
-          living almost entirely inside a larger one.
+          21 representatives cover 98.3% of the distinct rates.
         </p>
       </div>
 
