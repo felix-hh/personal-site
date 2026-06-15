@@ -22,9 +22,10 @@
   --ink-mute: #6b6457;
   --ink-faint: #a39c8e;
   --rule: #eceae4;
-  /* Article links are blue (chrome links stay monochrome). */
+  /* Article links are blue (chrome links stay monochrome); visited = purple. */
   --link: #2563eb;
   --link-hover: #1d4ed8;
+  --link-visited: #7c3aed;
   /* No accent: mapped to ink so any --accent reference stays monochrome. */
   --accent: #1c1916;
   --accent-soft: #3a352e;
@@ -345,6 +346,7 @@ html { color-scheme: light; }
 .fh-post-body em { font-style: italic; }
 /* Article links: blue. Footnote refs/back-links inherit it too. */
 .fh-post-body a { color: var(--link); text-decoration-color: var(--link); }
+.fh-post-body a:visited { color: var(--link-visited); text-decoration-color: var(--link-visited); }
 .fh-post-body a:hover { color: var(--link-hover); text-decoration-color: var(--link-hover); }
 .fh-post-body h2 {
   font-family: var(--font-display); font-weight: var(--display-weight);
@@ -404,10 +406,14 @@ html { color-scheme: light; }
   font-size: 0.8em;
   vertical-align: super;
   line-height: 0;
-  color: var(--ink-mute);
+  color: var(--link);
   text-decoration: none;
   padding: 0 1px;
 }
+.fh-post-body sup a:visited,
+.fh-footnote-ref:visited { color: var(--link-visited); }
+.fh-post-body sup a:hover,
+.fh-footnote-ref:hover { color: var(--link-hover); }
 
 /* Endnotes — remark-gfm renders <section class="footnotes">. */
 .fh-post-body .footnotes {
