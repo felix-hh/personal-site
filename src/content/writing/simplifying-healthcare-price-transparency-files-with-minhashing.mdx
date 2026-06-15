@@ -1,0 +1,34 @@
+---
+title: "Simplifying healthcare price-transparency files with MinHashing"
+date: 2026-06-14
+description: "MinHash containment estimates show 80–94% of Aetna's price-transparency files are redundant — 115 files collapse to 21 representatives covering 98% of distinct rates."
+featured: true
+featured_order: 2
+tags: [data, healthcare, algorithms]
+draft: false
+---
+
+import ContainmentHeatmap from '../../components/widgets/ContainmentHeatmap.tsx';
+import ContainmentHeatmapLarge from '../../components/widgets/ContainmentHeatmapLarge.tsx';
+
+In 2020 the government mandated health insurers to publish all of their pricing information. In simplified terms, there is a file for every health plan, and every row in the file is a negotiated price for an item or service, applying to a set of medical providers. Over the last year, insurers have published at least 1.17 petabytes of data in the form of these MRF files, each of which is multiple GB in size, compressed. For example, in April 2026, the page for [Aetna Fully Insured](https://www.accessmrf.com/sources/aetna-cvs-fully-insured-under-100-employees-dd4e1313785d440ebf47a3fa8babff6a) published 108 files, and [Aetna Signature Administrators](https://www.accessmrf.com/sources/aetna-cvs-aetna-signature-administrators-f25606b22dfb4193bea2d4da38e7c30a) published 7 files. What if I told you that, today, more than 90% of that data is likely to be useless bloat?
+
+I like to spend my time playing with this data, and I have dreamed of ingesting every price and have a national database for a while, however, the massive amounts of published data make the project seem daunting. Because I couldn’t afford storing even 1/1000th of this massive dataset for a hobby project, I started by trying to make sense of it, creating a centralized catalog of all of the sources that have been published to date. This is [accessmrf.com](https://www.accessmrf.com) and how I know that at least 1.17 petabytes of data were published last year. Lately, I have been sinking my time in understanding the structure of the dataset and figure out a few tricks to get everything processed. 
+
+## MinHashing - an efficient way to uncover data duplication across files
+
+One of such tricks is MinHashing [^1]. In short, the technique consists in hashing every row in a machine readable file, sort the values (which are independently, and identically distributed, thanks to the properties of random hash functions), sorting those values, and choosing the first K of them (1 million in my case) to construct the “signature” of a file. Unlike naively sorting and sampling the first few values, these signatures can be used to estimate the similarity of sets, using metrics like Jaccard similarity and containment. And we can do so in O(N) time and O(1) memory, which is a big win, because it means I can process all of the files without storing them.
+
+To understand the methodology, let us begin by zooming into the Aetna Signature Administrators April 2026 dataset. After processing the data, I found that there are **4,266,291,190** rate publications across the 7 files; only **~816,599,156** are distinct rates → **80.9% redundancy**. And the most striking finding, 2 files (`pl-22z-tr18`, `pl-299-tr18`) capture 99% of the distinct rates. As you can see below, `pl-22z-tr18` , which is slightly larger than the other files, contains (per our min hash estimate) 4 other files, and covers most of the 5th. While Aetna used 19.4 GB to publish these files, just by eliminating duplicates, we can reduce the dataset size by 1 OOM to 3.51 GB, without applying any other tricks, of which there are many. And Aetna Signature Administrators is a small dataset, as we will se below, we can expect more redundancy on other datasets.
+
+<ContainmentHeatmap client:visible />
+
+## Generalizing to 115 files
+
+The next step was extending my analysis to also **include Aetna Fully Insured Under 100 Employees,** for an additional 108 files in the month of April 2026. The results did not disappoint. The 115 files contain **71.6 billion priced rates**. Of those, **only 4.14 billion are distinct** → **94.2% redundancy rate**. Of the 115 files, **21 representatives cover 98.3% of the distinct rates**. The single biggest file covers 65 of the other 114. The 21 files, which total 21.7 GB, include almost the totality of information of the 115 files totaling 312.86 GB. Another interesting finding was the overlap across Aetna datasets, with `pl-299-tr18` being rates that are shared by both datasets.
+
+<ContainmentHeatmapLarge client:visible />
+
+So what is next? On the policymaking side, this is informative that the current guidelines and incentives for publishing are not effective in publishing data in its most actionable form. On my end, I plan to use this insights in 2 distinct ways. First, I want to cluster files by similarity to infer the taxonomy of the different plans that an insurer publishes, and understand which rates apply to which plans. Second, I want to combine this simplification of the dataset, in addition with other tricks to reduce the amount of data by 3 OOMs. If I turn this 1.14 PB dataset into 1.14 TB of information by applying good compression, eliminating redundancy and garbage, the data can become actionable, and the dream of a national database of healthcare prices becomes possible.
+
+[^1]: The technique is explained in detail here: https://giorgi.tech/blog/minhashing/

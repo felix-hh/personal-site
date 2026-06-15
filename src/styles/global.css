@@ -22,6 +22,9 @@
   --ink-mute: #6b6457;
   --ink-faint: #a39c8e;
   --rule: #eceae4;
+  /* Article links are blue (chrome links stay monochrome). */
+  --link: #2563eb;
+  --link-hover: #1d4ed8;
   /* No accent: mapped to ink so any --accent reference stays monochrome. */
   --accent: #1c1916;
   --accent-soft: #3a352e;
@@ -340,6 +343,9 @@ html { color-scheme: light; }
 .fh-post-body p { margin: 0 0 1.2em; color: var(--ink-soft); text-wrap: pretty; hyphens: auto; }
 .fh-post-body strong { color: var(--ink); font-weight: 600; }
 .fh-post-body em { font-style: italic; }
+/* Article links: blue. Footnote refs/back-links inherit it too. */
+.fh-post-body a { color: var(--link); text-decoration-color: var(--link); }
+.fh-post-body a:hover { color: var(--link-hover); text-decoration-color: var(--link-hover); }
 .fh-post-body h2 {
   font-family: var(--font-display); font-weight: var(--display-weight);
   font-size: var(--h2-size); line-height: 1.25; letter-spacing: var(--display-tracking);

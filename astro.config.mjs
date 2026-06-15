@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 import remarkGfm from 'remark-gfm';
+import rehypeExternalLinks from 'rehype-external-links';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +13,10 @@ export default defineConfig({
   integrations: [mdx(), preact(), sitemap()],
   markdown: {
     remarkPlugins: [remarkGfm],
+    // External links open in a new tab, safely.
+    rehypePlugins: [
+      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
+    ],
     shikiConfig: {
       theme: 'github-light',
     },

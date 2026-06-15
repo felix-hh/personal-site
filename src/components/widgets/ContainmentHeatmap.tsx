@@ -6,8 +6,11 @@ import type { JSX } from 'preact';
 // re-skinned monochrome with the original floating tooltip restored. Data
 // (HM_FILES + HM_C) is copied verbatim — real numbers from the pipeline.
 
-// Display order: descending by sketch cardinality (matches the published figure).
-const FILES = ['pl-22z', 'pl-3i4', 'pl-3dn', 'pl-4ux', 'pl-4xy', 'pl-5to', 'pl-299'];
+// Display order: the standalone file (pl-299 — its own rate universe, contains
+// only itself) leads, then the cluster descending by sketch cardinality. The
+// matrix only ever shows files that are *kept* at the current threshold, so the
+// leading rows are the survivors and subsumed files drop out entirely.
+const FILES = ['pl-299', 'pl-22z', 'pl-3i4', 'pl-3dn', 'pl-4ux', 'pl-4xy', 'pl-5to'];
 
 // containment C(A ⊆ B), A=row, B=col, full 7×7 from report.md §2.
 const C: Record<string, Record<string, number>> = {
@@ -30,9 +33,17 @@ function color(v: number): string {
 
 const n = FILES.length;
 const M = 44,
-  padTop = 86,
-  left = 86,
-  gap = 2;
+  gap = 2,
+  pitch = M + gap;
+// Fixed label margins; the grid is anchored at (mL, mT) so survivors keep their
+// place while subsumed files peel off the bottom-right. The viewBox is sized to
+// the grid, and `CELL_SCALE` caps the on-screen size so cells stay a constant
+// ~64px and the whole figure visibly shrinks as files merge.
+const mL = 94,
+  mT = 96,
+  mR = 18,
+  mB = 18,
+  CELL_SCALE = 1.45;
 
 interface TipState {
   x: number;
@@ -45,22 +56,41 @@ export default function ContainmentHeatmap() {
   const [thr, setThr] = useState(1.0);
   const [tip, setTip] = useState<TipState | null>(null);
 
-  // greedy keep in cardinality (display) order
-  const { status, kept } = useMemo(() => {
+  // Greedy keep in display order. A file is subsumed if some already-kept file
+  // covers at least `thr` of it; otherwise it survives as its own file.
+  // `assignedTo` maps every file to the kept container it folds into (itself if
+  // kept). Rows = kept containers (they drop out as they're absorbed); columns =
+  // all files. A container's highlighted cells across the row ARE its cluster.
+  const { kept, status, assignedTo } = useMemo(() => {
     const kept: string[] = [];
     const status: Record<string, 'kept' | 'subsumed'> = {};
+    const assignedTo: Record<string, string> = {};
     FILES.forEach((f) => {
-      const covered = kept.some((k) => C[f][k] >= thr);
-      if (covered) status[f] = 'subsumed';
-      else {
+      const container = kept.find((c) => C[f][c] >= thr);
+      if (container) {
+        status[f] = 'subsumed';
+        assignedTo[f] = container;
+      } else {
         status[f] = 'kept';
+        assignedTo[f] = f;
         kept.push(f);
       }
     });
-    return { status, kept };
+    return { kept, status, assignedTo };
   }, [thr]);
 
+  const k = kept.length;
   const lossless = thr >= 0.9999;
+
+  // Anchor the grid at fixed top-left margins. Columns are fixed (all n files),
+  // rows shrink as files are kept-or-absorbed, so the figure gets shorter — not
+  // narrower — as the bar tightens.
+  const gridW = n * pitch - gap;
+  const gridH = k * pitch - gap;
+  const ox = mL,
+    oy = mT;
+  const vbW = mL + gridW + mR,
+    vbH = mT + gridH + mB;
 
   function onCellMove(e: JSX.TargetedMouseEvent<SVGGElement>, i: number, j: number) {
     setTip({
@@ -72,26 +102,30 @@ export default function ContainmentHeatmap() {
   }
 
   function tipContent(i: number, j: number) {
-    const a = FILES[i],
-      b = FILES[j],
-      v = C[a][b];
-    if (i === j)
+    const container = kept[i],
+      f = FILES[j],
+      v = C[f][container];
+    if (f === container)
       return (
         <>
-          <code>{a}</code> vs itself.
+          <code>{container}</code> — kept as its own file. It covers itself fully
+          and nothing else subsumes it at this threshold.
         </>
       );
+    const ctx =
+      assignedTo[f] === container
+        ? `${f} folds into ${container}'s cluster.`
+        : v < 0.05
+          ? `Different rate universe — ${container} barely covers ${f}.`
+          : v >= thr
+            ? `${container} also covers ${f}, but ${f} folds into ${assignedTo[f]} (its leftmost container).`
+            : `${container} covers ${(v * 100).toFixed(1)}% of ${f} — below the ${(thr * 100).toFixed(1)}% bar.`;
     return (
       <>
-        <b>{(v * 100).toFixed(1)}%</b> of <code>{a}</code> already lives inside <code>{b}</code>.
+        <b>{(v * 100).toFixed(1)}%</b> of <code>{f}</code> lives inside{' '}
+        <code>{container}</code>.
         <br />
-        <span class="fh-tip-ctx">
-          {v > 0.97
-            ? `Keep ${b} and you can drop ${a}.`
-            : v < 0.05
-              ? `Different rate universe — ${b} barely covers ${a}.`
-              : `${b} misses ${((1 - v) * 100).toFixed(1)}% of ${a}'s rates.`}
-        </span>
+        <span class="fh-tip-ctx">{ctx}</span>
       </>
     );
   }
@@ -99,55 +133,55 @@ export default function ContainmentHeatmap() {
   return (
     <figure class="fh-figure">
       <figcaption class="fh-figure-label">
-        Figure 2 · Containment heatmap · Aetna ASA MRFs (7 files)
+        Figure 2 · Containment heatmap · Aetna ASA MRFs ({n} files)
       </figcaption>
       <div class="fh-widget">
-        <svg viewBox="0 0 560 560" role="img" aria-label="Containment heatmap">
-          {/* column labels (container) */}
+        <svg
+          viewBox={`0 0 ${vbW} ${vbH}`}
+          role="img"
+          aria-label="Containment heatmap"
+          style={{ maxWidth: `${Math.round(vbW * CELL_SCALE)}px`, margin: '0 auto' }}
+        >
+          {/* column labels (all files) — kept in ink, subsumed faint */}
           {FILES.map((f, j) => {
-            const cx = left + j * (M + gap) + M / 2;
+            const cx = ox + j * pitch + M / 2;
             return (
               <text
                 class={`fh-hm-clabel fh-${status[f]}`}
                 x={cx}
-                y={padTop - 12}
+                y={oy - 12}
                 text-anchor="middle"
-                transform={`rotate(-35 ${cx} ${padTop - 12})`}
+                transform={`rotate(-35 ${cx} ${oy - 12})`}
               >
                 {f}
               </text>
             );
           })}
-          <text
-            class="fh-hm-axis"
-            x={left + (n * (M + gap)) / 2}
-            y={22}
-            text-anchor="middle"
-          >
-            container file (column) →
+          <text class="fh-hm-axis" x={ox + gridW / 2} y={oy - 52} text-anchor="middle">
+            contained file (column) →
           </text>
 
-          {/* row labels + cells */}
-          {FILES.map((a, i) => {
-            const cy = padTop + i * (M + gap) + M / 2;
-            const rowDim = status[a] === 'subsumed';
+          {/* one row per kept container; its lit cells span its cluster */}
+          {kept.map((container, i) => {
+            const cy = oy + i * pitch + M / 2;
             return (
               <>
                 <text
-                  class={`fh-hm-clabel fh-${status[a]}`}
-                  x={left - 10}
+                  class="fh-hm-clabel fh-kept"
+                  x={ox - 12}
                   y={cy + 4}
                   text-anchor="end"
                 >
-                  {a}
+                  {container}
                 </text>
-                {FILES.map((b, j) => {
-                  const v = C[a][b];
-                  const rx = left + j * (M + gap),
-                    ry = padTop + i * (M + gap);
+                {FILES.map((f, j) => {
+                  const v = C[f][container];
+                  const active = assignedTo[f] === container;
+                  const rx = ox + j * pitch,
+                    ry = oy + i * pitch;
                   return (
                     <g
-                      class={`fh-hm-cell${rowDim ? ' fh-dim' : ''}`}
+                      class={`fh-hm-cell${active ? '' : ' fh-dim'}`}
                       onMouseMove={(e) => onCellMove(e, i, j)}
                       onMouseLeave={() => setTip(null)}
                     >
@@ -170,12 +204,12 @@ export default function ContainmentHeatmap() {
           })}
           <text
             class="fh-hm-axis"
-            x={14}
-            y={padTop + (n * (M + gap)) / 2}
+            x={ox - 66}
+            y={oy + gridH / 2}
             text-anchor="middle"
-            transform={`rotate(-90 14 ${padTop + (n * (M + gap)) / 2})`}
+            transform={`rotate(-90 ${ox - 66} ${oy + gridH / 2})`}
           >
-            contained file (row)
+            kept file (row)
           </text>
         </svg>
 
@@ -187,7 +221,7 @@ export default function ContainmentHeatmap() {
 
         <div class="fh-controls">
           <div class="fh-control-row">
-            <label for="hm-thr">Collapse files contained at ≥</label>
+            <label for="hm-thr">Coverage required (to subsume a contained file)</label>
             <input
               id="hm-thr"
               type="range"
@@ -203,7 +237,7 @@ export default function ContainmentHeatmap() {
             Keep <b>{kept.length} file{kept.length > 1 ? 's' : ''}</b> ({kept.join(', ')});{' '}
             {n - kept.length} subsumed.{' '}
             {lossless
-              ? 'At 100% this is lossless — the dropped files add zero rates.'
+              ? 'At 100% the sketch found no rates in the dropped files that the kept ones miss — loss is minimal, bounded by what a sampled estimate can overlook.'
               : "Below 100% you're trading a sliver of rates for fewer files (lossy)."}
           </p>
         </div>
