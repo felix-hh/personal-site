@@ -144,6 +144,10 @@ html { color-scheme: light; }
 .fh-p { margin: 0 0 1.2em; color: var(--ink-soft); text-wrap: pretty; hyphens: auto; }
 .fh-p strong { color: var(--ink); font-weight: 600; }
 .fh-p em { font-style: italic; }
+/* Homepage prose links are blue, same as article links; visited = purple. */
+.fh-p a { color: var(--link); text-decoration-color: var(--link); }
+.fh-p a:visited { color: var(--link-visited); text-decoration-color: var(--link-visited); }
+.fh-p a:hover { color: var(--link-hover); text-decoration-color: var(--link-hover); }
 
 /* Meta (date, tagline-row) */
 .fh-meta {
@@ -497,6 +501,11 @@ html { color-scheme: light; }
 
 /* Widget controls */
 .fh-controls { margin-top: 16px; }
+.fh-hm-question {
+  display: block; margin-bottom: 10px;
+  font-family: var(--font-label); font-style: italic;
+  font-size: 14px; color: var(--ink-soft);
+}
 .fh-control-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .fh-control-row label {
   font-family: var(--font-label); font-style: italic;

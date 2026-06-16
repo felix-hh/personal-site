@@ -14,7 +14,10 @@ const n = FILES.length;
 const ASA = FILES.filter((f) => f.ds === 'ASA').length; // group boundary
 
 // Monochrome ink ramp, identical to the 7-file heatmap: bg-subtle (0) → ink (1).
+// Exact 100% containment gets a distinctive dark green.
+const FULL = 'rgb(22,101,52)';
 function color(v: number): string {
+  if (v >= 0.9999) return FULL;
   const a = [243, 240, 232],
     b = [28, 25, 22];
   const c = a.map((ch, j) => Math.round(ch + (b[j] - ch) * v));
@@ -120,7 +123,13 @@ export default function ContainmentHeatmapLarge() {
           style={{ maxWidth: `${vbW}px`, margin: '0 auto' }}
         >
           {/* column group labels + caption */}
-          <text class="fh-hm-axis" x={ox + gridPx / 2} y={20} text-anchor="middle">
+          <text
+            class="fh-hm-axis"
+            x={ox + gridPx / 2}
+            y={20}
+            text-anchor="middle"
+            style={{ fontSize: '17px' }}
+          >
             container file (column) →
           </text>
           <text class="fh-hm-clabel fh-kept" x={asaMid} y={oy - 10} text-anchor="middle">
@@ -137,6 +146,7 @@ export default function ContainmentHeatmapLarge() {
             y={oy + gridPx / 2}
             text-anchor="middle"
             transform={`rotate(-90 20 ${oy + gridPx / 2})`}
+            style={{ fontSize: '17px' }}
           >
             contained file (row)
           </text>

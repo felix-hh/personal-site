@@ -23,8 +23,11 @@ const C: Record<string, Record<string, number>> = {
   'pl-299': { 'pl-22z': 0.0047, 'pl-3i4': 0.0037, 'pl-3dn': 0.0033, 'pl-4ux': 0.0034, 'pl-4xy': 0.0034, 'pl-5to': 0.0039, 'pl-299': 1.0 },
 };
 
-// Monochrome ink ramp: bg-subtle (0) → ink (1), linear in RGB.
+// Monochrome ink ramp: bg-subtle (0) → ink (1), linear in RGB. Exact 100%
+// containment gets a distinctive dark green so full containment stands apart.
+const FULL = 'rgb(22,101,52)';
 function color(v: number): string {
+  if (v >= 0.9999) return FULL;
   const a = [243, 240, 232],
     b = [28, 25, 22];
   const c = a.map((ch, j) => Math.round(ch + (b[j] - ch) * v));
@@ -44,6 +47,16 @@ const mL = 94,
   mR = 18,
   mB = 18,
   CELL_SCALE = 1.45;
+// Most rows the figure can ever show (greedy keep at the slider's max, 100%).
+// The viewBox height is fixed to this so adding/removing a row never resizes
+// the figure — empty rows just sit at the bottom.
+const MAX_ROWS = (() => {
+  const keep: string[] = [];
+  FILES.forEach((f) => {
+    if (!keep.some((c) => C[f][c] >= 1.0)) keep.push(f);
+  });
+  return keep.length;
+})();
 
 interface TipState {
   x: number;
@@ -88,8 +101,10 @@ export default function ContainmentHeatmap() {
   const gridH = k * pitch - gap;
   const ox = mL,
     oy = mT;
+  // Width tracks the (fixed) column count; height is pinned to MAX_ROWS so the
+  // figure stays a constant size as rows are added/removed.
   const vbW = mL + gridW + mR,
-    vbH = mT + gridH + mB;
+    vbH = mT + (MAX_ROWS * pitch - gap) + mB;
 
   function onCellMove(e: JSX.TargetedMouseEvent<SVGGElement>, i: number, j: number) {
     setTip({
@@ -135,12 +150,11 @@ export default function ContainmentHeatmap() {
         Figure 2 · Containment heatmap · Aetna ASA MRFs ({n} files)
       </figcaption>
       <div class="fh-widget">
-        <svg
-          viewBox={`0 0 ${vbW} ${vbH}`}
-          role="img"
-          aria-label="Containment heatmap"
+        <div
+          class="fh-hm-stage"
           style={{ maxWidth: `${Math.round(vbW * CELL_SCALE)}px`, margin: '0 auto' }}
         >
+        <svg viewBox={`0 0 ${vbW} ${vbH}`} role="img" aria-label="Containment heatmap">
           {/* column labels (all files) — kept in ink, subsumed faint */}
           {FILES.map((f, j) => {
             const cx = ox + j * pitch + M / 2;
@@ -175,12 +189,11 @@ export default function ContainmentHeatmap() {
                 </text>
                 {FILES.map((f, j) => {
                   const v = C[f][container];
-                  const active = assignedTo[f] === container;
                   const rx = ox + j * pitch,
                     ry = oy + i * pitch;
                   return (
                     <g
-                      class={`fh-hm-cell${active ? '' : ' fh-dim'}`}
+                      class="fh-hm-cell"
                       onMouseMove={(e) => onCellMove(e, i, j)}
                       onMouseLeave={() => setTip(null)}
                     >
@@ -219,8 +232,10 @@ export default function ContainmentHeatmap() {
         </div>
 
         <div class="fh-controls">
+          <label class="fh-hm-question" for="hm-thr">
+            How similar should files be to group them?
+          </label>
           <div class="fh-control-row">
-            <label for="hm-thr">Coverage required (to subsume a contained file)</label>
             <input
               id="hm-thr"
               type="range"
@@ -236,6 +251,7 @@ export default function ContainmentHeatmap() {
             Keep <b>{kept.length} file{kept.length > 1 ? 's' : ''}</b> ({kept.join(', ')});{' '}
             {n - kept.length} subsumed.
           </p>
+        </div>
         </div>
       </div>
 
