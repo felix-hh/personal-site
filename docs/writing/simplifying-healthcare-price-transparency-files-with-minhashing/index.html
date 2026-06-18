@@ -1,4 +1,94 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v5.18.1"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.felixhaba.com/writing/simplifying-healthcare-price-transparency-files-with-minhashing/"><link rel="alternate" type="application/rss+xml" title="Felix Haba" href="https://www.felixhaba.com/rss.xml"><title>Simplifying Healthcare Price Transparency Files With MinHashing · Felix Haba</title><meta name="title" content="Simplifying Healthcare Price Transparency Files With MinHashing · Felix Haba"><meta name="description" content="Exploring extreme data redundancy in health care machine readable files using MinHash."><meta property="og:type" content="website"><meta property="og:url" content="https://www.felixhaba.com/writing/simplifying-healthcare-price-transparency-files-with-minhashing/"><meta property="og:title" content="Simplifying Healthcare Price Transparency Files With MinHashing · Felix Haba"><meta property="og:description" content="Exploring extreme data redundancy in health care machine readable files using MinHash."><link rel="stylesheet" href="/_astro/_slug_.GYoOzBXM.css"></head> <body class="fh-root fh-editorial"> <div class="fh-page"> <header class="fh-header"> <div class="fh-brand-row"> <a href="/" class="fh-brand fh-bare">Felix Haba</a> <span class="fh-tagline">Writing about engineering, healthcare and books</span> </div> <nav class="fh-nav"> <a href="/writing/" aria-current="page"> Writing </a><a href="/"> About </a> </nav> </header> <main>  <article> <h1 class="fh-h1 fh-post-title">Simplifying Healthcare Price Transparency Files With MinHashing</h1> <p class="fh-post-meta">14 Jun 2026</p> <div class="fh-post-body">  <p>In 2020 the government mandated health insurers to publish all of their pricing information. In simplified terms, there is a file for every health plan, and every row in the file is a negotiated price for an item or service, applying to a set of medical providers. Over the last year, insurers have published at least 1.17 petabytes of data in the form of these MRF files, each of which is multiple GB in size, compressed. For example, in April 2026, the page for <a href="https://www.accessmrf.com/sources/aetna-cvs-fully-insured-under-100-employees-dd4e1313785d440ebf47a3fa8babff6a" rel="noopener noreferrer" target="_blank">Aetna Fully Insured</a> published 108 files, and <a href="https://www.accessmrf.com/sources/aetna-cvs-aetna-signature-administrators-f25606b22dfb4193bea2d4da38e7c30a" rel="noopener noreferrer" target="_blank">Aetna Signature Administrators</a> published 7 files. What if I told you that, today, more than 90% of that data is likely to be useless bloat?</p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v5.18.1"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.felixhaba.com/writing/simplifying-healthcare-price-transparency-files-with-minhashing/"><link rel="alternate" type="application/rss+xml" title="Felix Haba" href="https://www.felixhaba.com/rss.xml"><title>Simplifying Healthcare Price Transparency Files With MinHashing · Felix Haba</title><meta name="title" content="Simplifying Healthcare Price Transparency Files With MinHashing · Felix Haba"><meta name="description" content="Exploring extreme data redundancy in health care machine readable files using MinHash."><meta property="og:type" content="website"><meta property="og:url" content="https://www.felixhaba.com/writing/simplifying-healthcare-price-transparency-files-with-minhashing/"><meta property="og:title" content="Simplifying Healthcare Price Transparency Files With MinHashing · Felix Haba"><meta property="og:description" content="Exploring extreme data redundancy in health care machine readable files using MinHash."><script>(function(){const token = "cda90d97d93ca1295299dbba88d19b8f";
+const event = "Page Viewed";
+const eventProps = {};
+
+      {
+        (() => {
+          // Only track on the real production domain — never local dev,
+          // `npm run preview`, 127.0.0.1, or branch previews.
+          const PROD_HOSTS = ['www.felixhaba.com', 'felixhaba.com'];
+          if (!PROD_HOSTS.includes(location.hostname)) return;
+
+          // Respect Do Not Track (modern + legacy spellings).
+          const dnt =
+            navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+          if (dnt === '1' || dnt === 'yes' || dnt === true) return;
+
+          // Official Mixpanel loader snippet: defines a window.mixpanel stub that
+          // queues calls, then async-loads the full library which replays them.
+          (function (f, b) {
+            if (!b.__SV) {
+              var e, g, i, h;
+              window.mixpanel = b;
+              b._i = [];
+              b.init = function (e, f, c) {
+                function g(a, d) {
+                  var b = d.split('.');
+                  2 == b.length && ((a = a[b[0]]), (d = b[1]));
+                  a[d] = function () {
+                    a.push([d].concat(Array.prototype.slice.call(arguments, 0)));
+                  };
+                }
+                var a = b;
+                'undefined' !== typeof c ? (a = b[c] = []) : (c = 'mixpanel');
+                a.people = a.people || [];
+                a.toString = function (a) {
+                  var d = 'mixpanel';
+                  'mixpanel' !== c && (d += '.' + c);
+                  a || (d += ' (stub)');
+                  return d;
+                };
+                a.people.toString = function () {
+                  return a.toString(1) + '.people (stub)';
+                };
+                i = 'disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove'.split(
+                  ' '
+                );
+                for (h = 0; h < i.length; h++) g(a, i[h]);
+                var j = 'set set_once union unset remove delete'.split(' ');
+                a.get_group = function () {
+                  function b(c) {
+                    d[c] = function () {
+                      call2_args = arguments;
+                      call2 = [c].concat(Array.prototype.slice.call(call2_args, 0));
+                      a.push([e, call2]);
+                    };
+                  }
+                  for (
+                    var d = {},
+                      e = ['get_group'].concat(Array.prototype.slice.call(arguments, 0)),
+                      c = 0;
+                    c < j.length;
+                    c++
+                  )
+                    b(j[c]);
+                  return d;
+                };
+                b._i.push([e, f, c]);
+              };
+              b.__SV = 1.2;
+              e = f.createElement('script');
+              e.type = 'text/javascript';
+              e.async = !0;
+              e.src = 'https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js';
+              g = f.getElementsByTagName('script')[0];
+              g.parentNode.insertBefore(e, g);
+            }
+          })(document, window.mixpanel || []);
+
+          window.mixpanel.init(token, {
+            persistence: 'localStorage',
+            track_pageview: false,
+          });
+          window.mixpanel.track(event, {
+            ...eventProps,
+            title: document.title,
+            path: location.pathname,
+            referrer: document.referrer || null,
+          });
+        })();
+      }
+    })();</script><link rel="stylesheet" href="/_astro/_slug_.GYoOzBXM.css"></head> <body class="fh-root fh-editorial"> <div class="fh-page"> <header class="fh-header"> <div class="fh-brand-row"> <a href="/" class="fh-brand fh-bare">Felix Haba</a> <span class="fh-tagline">Writing about engineering, healthcare and books</span> </div> <nav class="fh-nav"> <a href="/writing/" aria-current="page"> Writing </a><a href="/"> About </a> </nav> </header> <main>  <article> <h1 class="fh-h1 fh-post-title">Simplifying Healthcare Price Transparency Files With MinHashing</h1> <p class="fh-post-meta">14 Jun 2026</p> <div class="fh-post-body">  <p>In 2020 the government mandated health insurers to publish all of their pricing information. In simplified terms, there is a file for every health plan, and every row in the file is a negotiated price for an item or service, applying to a set of medical providers. Over the last year, insurers have published at least 1.17 petabytes of data in the form of these MRF files, each of which is multiple GB in size, compressed. For example, in April 2026, the page for <a href="https://www.accessmrf.com/sources/aetna-cvs-fully-insured-under-100-employees-dd4e1313785d440ebf47a3fa8babff6a" rel="noopener noreferrer" target="_blank">Aetna Fully Insured</a> published 108 files, and <a href="https://www.accessmrf.com/sources/aetna-cvs-aetna-signature-administrators-f25606b22dfb4193bea2d4da38e7c30a" rel="noopener noreferrer" target="_blank">Aetna Signature Administrators</a> published 7 files. What if I told you that, today, more than 90% of that data is likely to be useless bloat?</p>
 <p>I like to spend my time playing with this data, and I have dreamed of ingesting every price and have a national database for a while, however, the massive amounts of published data make the project seem daunting. Because I couldn’t afford storing even 1/1000th of this massive dataset for a hobby project, I started by trying to make sense of it, creating a centralized catalog of all of the sources that have been published to date. This is <a href="https://www.accessmrf.com" rel="noopener noreferrer" target="_blank">accessmrf.com</a> and how I know that at least 1.17 petabytes of data were published last year. Lately, I have been sinking my time in understanding the structure of the dataset and figure out a few tricks to get everything processed.</p>
 <h2 id="minhashing---an-efficient-way-to-uncover-data-duplication-across-files">MinHashing - an efficient way to uncover data duplication across files</h2>
 <p>One of such tricks is MinHashing<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>. In short, the technique consists in hashing every row in a machine readable file, sort the values (which are independently, and identically distributed, thanks to the properties of random hash functions), sorting those values, and choosing the first K of them (1 million in my case) to construct the “signature” of a file. Unlike naively sorting and sampling the first few values, these signatures can be used to estimate the similarity of sets, using metrics like Jaccard similarity and containment. And we can do so in O(N) time and O(1) memory, which is a big win, because it means I can process all of the files without storing them.</p>
