@@ -29,6 +29,12 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          # .env is gitignored, so CI has no token unless we pass one here.
+          # A Mixpanel *project token* is a public client-side identifier (it
+          # ships in the built HTML), so it's fine in plain text. Without this,
+          # Analytics.astro renders nothing and prod ships zero tracking.
+          PUBLIC_MIXPANEL_TOKEN: cda90d97d93ca1295299dbba88d19b8f
 
       - name: Publish to gh-pages/docs
         uses: peaceiris/actions-gh-pages@v4
