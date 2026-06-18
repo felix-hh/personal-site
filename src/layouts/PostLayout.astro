@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Analytics from '../components/Analytics.astro';
 import { formatDay } from '../lib/posts';
 
 interface Props {
@@ -15,7 +14,6 @@ const dateLabel = formatDay(date);
 ---
 
 <BaseLayout title={title} description={description}>
-  <Analytics event="Post Viewed" eventProps={{ title }} />
   <article>
     <h1 class="fh-h1 fh-post-title">{title}</h1>
     <p class="fh-post-meta">{dateLabel}</p>

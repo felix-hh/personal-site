@@ -1,20 +1,25 @@
 ---
 // Minimal, privacy-respecting Mixpanel page tracking.
 //
-// Loaded only where it's imported (currently PostLayout), so text-only pages
-// like the homepage and About stay zero-JS. It:
+// Rendered from BaseLayout, so it runs on every page (home/About, the writing
+// index, and posts). This is a deliberate trade against the repo's usual
+// "zero-JS on text pages" rule — we want pageviews site-wide. It:
 //   - no-ops if PUBLIC_MIXPANEL_TOKEN is unset (e.g. a local build with no .env)
 //   - only fires on the production domain — never local dev / preview / 127.0.0.1
 //   - respects Do Not Track (skips entirely when DNT is on)
 //   - uses localStorage persistence instead of cookies
 //   - loads Mixpanel via its official loader snippet, then fires a single event
 //
+// title, path and referrer are captured at runtime; segment posts vs. other
+// pages by `path` (posts live under /writing/<slug>/). UTM params on the URL
+// are captured automatically by the Mixpanel library.
+//
 // The token is a public client-side identifier (it ships in the bundle); see .env.
 
 interface Props {
-  /** Mixpanel event name, e.g. "Post Viewed". */
+  /** Mixpanel event name, e.g. "Page Viewed". */
   event: string;
-  /** Extra event properties (title, slug, …). path + referrer are added at runtime. */
+  /** Extra event properties. title, path + referrer are added at runtime. */
   eventProps?: Record<string, unknown>;
 }
 
@@ -105,6 +110,7 @@ const token = import.meta.env.PUBLIC_MIXPANEL_TOKEN;
           });
           window.mixpanel.track(event, {
             ...eventProps,
+            title: document.title,
             path: location.pathname,
             referrer: document.referrer || null,
           });
