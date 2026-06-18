@@ -5,7 +5,6 @@ import {
   getPublishedPosts,
   postHref,
   formatDay,
-  formatMonth,
   isDraft,
 } from '../../lib/posts';
 
@@ -24,7 +23,7 @@ const recent = await getPublishedPosts();
             {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
           </a>
           <span class="fh-featured-desc">{p.data.description}</span>
-          <span class="fh-featured-meta">{formatMonth(p.data.date)}</span>
+          <span class="fh-featured-meta">{formatDay(p.data.date)}</span>
         </article>
       ))
     }
