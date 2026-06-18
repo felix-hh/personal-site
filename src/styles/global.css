@@ -33,6 +33,7 @@
   /* Editorial type tokens */
   --font-body: 'Source Serif 4 Variable', 'Source Serif 4', Charter, Georgia, serif;
   --font-display: 'Spectral', 'Source Serif 4 Variable', Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-label: 'Spectral', serif;
 
@@ -122,13 +123,21 @@ html { color-scheme: light; }
   margin: 0 0 8px;
   color: var(--ink);
 }
+/* Post title — sans serif (Editorial revision) */
+.fh-post-title {
+  font-family: var(--font-sans);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.014em;
+  line-height: 1.15;
+}
 .fh-h2 {
   font-family: var(--font-display);
   font-weight: var(--display-weight);
   font-size: var(--h2-size);
   line-height: 1.25;
   letter-spacing: var(--display-tracking);
-  margin: 48px 0 14px;
+  margin: 24px 0 14px;
   color: var(--ink);
 }
 .fh-h3 {
@@ -363,17 +372,6 @@ html { color-scheme: light; }
 }
 .fh-post-body ul, .fh-post-body ol { padding-left: 1.4em; margin: 0 0 1.2em; }
 .fh-post-body li { margin: 0 0 0.4em; }
-
-/* Drop cap on the first paragraph of the post body (Editorial). */
-.fh-root.fh-editorial .fh-post-body > p:first-of-type::first-letter {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 4.4em;
-  line-height: 0.85;
-  float: left;
-  padding: 8px 12px 0 0;
-  color: var(--ink);
-}
 
 /* Blockquote */
 .fh-post-body blockquote {
