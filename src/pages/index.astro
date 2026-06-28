@@ -61,7 +61,7 @@ const experience = [
     name: 'Instra.ai',
     role: 'Co-founder',
     date: '',
-    detail: 'Trained a YOLOv5 model for surgical instrument detection; deployed via AWS Lambda.',
+    detail: 'Trained a YOLOv5 model for surgical instrument detection, deployed across web and hardware using AWS Lambda and NVIDIA Jetson Nano.',
   },
 ];
 
@@ -93,22 +93,6 @@ const reads = [
     often.
   </p>
 
-  <h2 class="fh-h2">Education</h2>
-  <ul class="fh-roles">
-    {
-      education.map((o) => (
-        <li class="fh-role">
-          <img class="fh-role-logo" src={o.logo} alt={`${o.name} logo`} />
-          <div class="fh-role-body">
-            <p class="fh-role-name">{o.name}</p>
-            <p class="fh-role-title">{o.role}</p>
-            <p class="fh-role-detail">{o.detail}</p>
-          </div>
-        </li>
-      ))
-    }
-  </ul>
-
   <h2 class="fh-h2">Experience</h2>
   <ul class="fh-roles">
     {
@@ -120,6 +104,22 @@ const reads = [
               <p class="fh-role-name">{o.name}</p>
               {o.date && <span class="fh-role-date">{o.date}</span>}
             </div>
+            <p class="fh-role-title">{o.role}</p>
+            <p class="fh-role-detail">{o.detail}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2 class="fh-h2">Education</h2>
+  <ul class="fh-roles">
+    {
+      education.map((o) => (
+        <li class="fh-role">
+          <img class="fh-role-logo" src={o.logo} alt={`${o.name} logo`} />
+          <div class="fh-role-body">
+            <p class="fh-role-name">{o.name}</p>
             <p class="fh-role-title">{o.role}</p>
             <p class="fh-role-detail">{o.detail}</p>
           </div>
@@ -140,14 +140,14 @@ const reads = [
     healthcare economics thesis.
   </p>
   <p class="fh-p">
-    <strong>Hippo.</strong> [no longer active] Medical service cost catalog using hospital price transparency data
+    <strong>Hippo.</strong> Medical service cost catalog using hospital price transparency data
     to provide gross charge estimates of IL and CA hospitals. The data is scraped online from
     every hospital website, converted to a SQLite table and search capabilities are powered via
     OpenAI GPT-3 and property filters. I also delivered a talk on how I built it at Wildhacks
     2023, my college's hackathon.
   </p>
   <p class="fh-p">
-    <strong>Instra.ai.</strong> [no longer active] Surgical instrument detection on images using transfer learning on
+    <strong>Instra.ai.</strong> Surgical instrument detection on images using transfer learning on
     YoloV5. Deployed on a webapp using AWS Lambda and on NVIDIA Jetson hardware. I also wrote a report for
     course credit <a href="https://drive.google.com/file/d/1iycK1mXEVQ1CszigU2Hdbw96XhLXwIxB/view?usp=sharing">here</a>.
   </p>
