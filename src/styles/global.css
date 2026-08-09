@@ -382,6 +382,25 @@ html { color-scheme: light; }
   font-style: italic;
 }
 
+/* Post images */
+.fh-post-body img {
+  display: block;
+  max-width: min(100%, 520px);
+  height: auto;
+  margin: 20px auto;
+}
+
+/* Collapsible sections */
+.fh-post-body details {
+  margin: 24px 0;
+}
+.fh-post-body summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+.fh-post-body details[open] summary { margin-bottom: 14px; }
+
 /* Code blocks (Shiki emits inline-styled <pre class="astro-code">). */
 .fh-post-body pre {
   background: var(--bg-subtle) !important;
