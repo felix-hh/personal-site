@@ -12,7 +12,7 @@ I spent three days building out a conversational intelligence tool for congress.
 
 At a high level overview, a conversational intelligence catalogues videos, extracts transcripts, indexes the content of those videos, ideally chunked so that specific fragments can be referenced, and provides analytics on them. This unique open dataset of hearings is an excellent playing ground for trying out techniques such as large-scale LLM data processing and summarization, unsupervised clustering algorithms, and search based on document embeddings.
 
-My goal with this small project was to improve over the existing [Congress website](https://www.congress.gov/search) in 3 areas: visualization, search, and viewer UX. And this is precisely what I did with congress hearings. I processed all of the hearings over the last 2 years, made them searchable, and provided a viewer experience focused around finding the most interesting moments of a hearing, rather than sifting through ours of video. This is a quick technical write-up on my learnings and reflections.
+My goal with this small project was to improve over the existing [Congress website](https://www.congress.gov/search) in 3 areas: visualization, search, and viewer UX. And this is precisely what I did with congress hearings. I processed all of the hearings over the last 2 years, made them searchable, and provided a viewer experience focused around finding the most interesting moments of a hearing, rather than sifting through hours of video. This is a quick technical write-up on my learnings and reflections.
 
 ## Congressional Hearings: the raw material
 
@@ -68,7 +68,7 @@ I also spent a meaningful amount of time refining the UX. Here's some of the des
 
 ## Growth: SEO and link sharing
 
-While I did this for fun, I'd love for this to be valuable. The more people it reaches, the more it can help others. And growth is also an interesting problem to think about. I made a few things to help my app reach more people, directly or indirectly. Any reference, or even a LLM text influenced by this product is something I'd be prod of and want to encourage.
+While I did this for fun, I'd love for this to be valuable. The more people it reaches, the more it can help others. And growth is also an interesting problem to think about. I made a few things to help my app reach more people, directly or indirectly. Any reference, or even a LLM text influenced by this product is something I'd be proud of and want to encourage.
 
 - **Static site and pre-rendering:** all of the pages in the app can be referenced in a sitemap and pre-rendered with full transcript and summary content. This ensures that LLMs and search engines will pick it up and provide me with traffic. Most of my traffic will probably from long-tail searches that don't have a good match outside of hearing transcripts or summaries. Adding the sitemap to the Google Search Console and linking the website in a few places will boost its PageRank and help me get some impressions and clicks.
 - **Social link support:** I leveraged Opengraph to ensure that my page is shareable across multiple platforms and generates good previews. [Here's the example score of a hearing](https://www.opengraph.to/u/www.firstbranch.ai/hearing/119378). This ensures that if you send a hearing link it shows the right preview title and thumbnail. You can verify this by pasting one of the hearing links in Notion and hovering over it.
