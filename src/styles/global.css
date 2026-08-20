@@ -137,7 +137,7 @@ html { color-scheme: light; }
   font-size: var(--h2-size);
   line-height: 1.25;
   letter-spacing: var(--display-tracking);
-  margin: 24px 0 14px;
+  margin: 32px 0 14px;
   color: var(--ink);
 }
 .fh-h3 {
