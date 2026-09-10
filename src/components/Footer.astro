@@ -1,6 +1,13 @@
 ---
+import { CONTACT } from '../consts';
 ---
 
 <footer class="fh-footer">
+  <a href="/writing/">Writing</a>
+  <a href="/">About</a>
+  <a href={CONTACT.github} rel="me noopener">GitHub</a>
+  <a href={CONTACT.linkedin} rel="me noopener">LinkedIn</a>
+  <a href={`mailto:${CONTACT.email}`}>Email</a>
+  <span class="fh-spacer"></span>
   <a href="/rss.xml">RSS</a>
 </footer>
