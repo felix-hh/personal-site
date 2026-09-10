@@ -9,7 +9,7 @@ export const BIO_INTRO =
   "I'm Felix, an engineer living in San Francisco. I moved from Barcelona to Chicago when I was 19 to study in Northwestern University, where I graduated with a B.S. in Physics and Economics, and a MS in Computer Science. In a past life I represented Spain in the International Biology Olympiad. I am originally from a beautiful town in the Mediterranean called Palafrugell.";
 
 export const CONTACT = {
-  email: 'felixh@u.northwestern.edu',
+  email: 'me@felixhaba.com',
   github: 'https://github.com/felix-hh',
   linkedin: 'https://www.linkedin.com/in/felixhaba/',
 };
