@@ -127,10 +127,10 @@ npm run preview    # serve built dist/ locally
 ## Design tokens (don't drift)
 
 Defined as CSS custom properties in `src/styles/global.css :root`:
-`--bg #faf8f3`, `--bg-subtle #f3f0e8`, `--ink #1c1916`, `--ink-soft #3a352e`,
-`--ink-mute #6b6457`, `--ink-faint #a39c8e`, `--rule #e6e1d4`. No accent color.
+`--bg #fbf9f4`, `--bg-subtle #f3f0e8`, `--ink #1c1916`, `--ink-soft #3a352e`,
+`--ink-mute #6b6457`, `--ink-faint #a39c8e`, `--rule #e6e1d4`. No accent color (article links are blue).
 Fonts via `@fontsource` (Spectral 300/400, Source Serif 4 Variable, JetBrains Mono).
-Body 18px/1.7; h1 56px / h2 34px / h3 22px, all Spectral weight 300.
+Body 18px/1.7; h1 56px / h3 22px in Spectral weight 300. Homepage section h2 (`.fh-h2`) is 30px weight 400 with a hairline top rule; post h2 is 34px weight 300.
 
 ## Gotchas learned the hard way
 

@@ -1,35 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
-  getFeaturedPosts,
   getPublishedPosts,
   postHref,
   formatDay,
   isDraft,
 } from '../../lib/posts';
 
-const featured = await getFeaturedPosts();
 const recent = await getPublishedPosts();
 ---
 
 <BaseLayout title="Writing">
-  <div class="fh-section-label" style="margin-top: 8px;"><span>Featured</span></div>
-  <div class="fh-featured">
-    {
-      featured.map((p) => (
-        <article class="fh-featured-item">
-          <a href={postHref(p)} class="fh-featured-title fh-bare">
-            {p.data.title}
-            {isDraft(p) && <em class="fh-draft-tag">[draft]</em>}
-          </a>
-          <span class="fh-featured-desc">{p.data.description}</span>
-          <span class="fh-featured-meta">{formatDay(p.data.date)}</span>
-        </article>
-      ))
-    }
-  </div>
-
-  <div class="fh-section-label"><span>All writing</span></div>
+  <div class="fh-section-label" style="margin-top: 8px;"><span>All writing</span></div>
   <ul class="fh-list">
     {
       recent.map((p) => (

@@ -15,13 +15,13 @@
 
 :root {
   /* Palette — Notion-style white page with neutral-warm blocks */
-  --bg: #ffffff;
-  --bg-subtle: #f7f6f3;
+  --bg: #fbf9f4;
+  --bg-subtle: #f3f0e8;
   --ink: #1c1916;
   --ink-soft: #3a352e;
   --ink-mute: #6b6457;
   --ink-faint: #a39c8e;
-  --rule: #eceae4;
+  --rule: #e6e1d4;
   /* Article links are blue (chrome links stay monochrome); visited = purple. */
   --link: #2563eb;
   --link-hover: #1d4ed8;
@@ -133,11 +133,13 @@ html { color-scheme: light; }
 }
 .fh-h2 {
   font-family: var(--font-display);
-  font-weight: var(--display-weight);
-  font-size: var(--h2-size);
+  font-weight: 400;
+  font-size: 30px;
   line-height: 1.25;
-  letter-spacing: var(--display-tracking);
-  margin: 32px 0 14px;
+  letter-spacing: -0.02em;
+  margin: 48px 0 18px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
   color: var(--ink);
 }
 .fh-h3 {
@@ -304,7 +306,6 @@ html { color-scheme: light; }
 .fh-role-title { margin: 3px 0 0; font-size: 15px; color: var(--ink-soft); }
 .fh-role-date { flex-shrink: 0; font-family: var(--font-label); font-style: italic; font-size: 13px; color: var(--ink-faint); white-space: nowrap; }
 .fh-role-detail { margin: 3px 0 0; font-size: 14px; color: var(--ink-mute); text-wrap: pretty; }
-
 /* Download button */
 .fh-download {
   display: inline-flex; align-items: baseline; gap: 8px;
