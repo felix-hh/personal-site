@@ -11,6 +11,10 @@ export default defineConfig({
   // Custom domain served via GitHub Pages (see public/CNAME).
   site: 'https://www.felixhaba.com',
   integrations: [mdx(), preact(), sitemap()],
+  // Booking link. Points at Calendly today; change the target here to switch tools.
+  redirects: {
+    '/meet': 'https://calendly.com/felixhaba/chat',
+  },
   markdown: {
     remarkPlugins: [remarkGfm],
     // External links open in a new tab, safely.
