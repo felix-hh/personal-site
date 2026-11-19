@@ -10,11 +10,8 @@ import rehypeExternalLinks from 'rehype-external-links';
 export default defineConfig({
   // Custom domain served via GitHub Pages (see public/CNAME).
   site: 'https://www.felixhaba.com',
-  integrations: [mdx(), preact(), sitemap()],
-  // Booking link. Points at Calendly today; change the target here to switch tools.
-  redirects: {
-    '/meet': 'https://calendly.com/felixhaba/chat',
-  },
+  // /meet is a redirect stub (src/pages/meet.astro), keep it out of the sitemap.
+  integrations: [mdx(), preact(), sitemap({ filter: (page) => !page.endsWith('/meet/') })],
   markdown: {
     remarkPlugins: [remarkGfm],
     // External links open in a new tab, safely.

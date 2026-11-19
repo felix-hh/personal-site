@@ -1,0 +1,18 @@
+---
+// Booking link. Points at Calendly today; change BOOKING_URL to switch tools.
+const BOOKING_URL = 'https://calendly.com/felixhaba/chat';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline define:vars={{ BOOKING_URL }}>location.replace(BOOKING_URL);</script>
+    <meta http-equiv="refresh" content={`0;url=${BOOKING_URL}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={BOOKING_URL} />
+    <title>Chat with Felix Haba</title>
+  </head>
+  <body>
+    <noscript><a href={BOOKING_URL}>Book a time with Felix</a></noscript>
+  </body>
+</html>
